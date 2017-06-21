@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Trive Fiskal API Library.
+ *
+ * @category  Trive
+ * @package   Trive_Fiskal
+ * @copyright 2017 Trive d.o.o (http://trive.digital)
+ * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @link      http://trive.digital
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="admin">
+        <route id="trive_fiskal" frontName="trive_fiskal">
+            <module name="Trive_Fiskal" before="Magento_Adminhtml"/>
+        </route>
+    </router>
+</config>

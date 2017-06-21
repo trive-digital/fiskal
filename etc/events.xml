@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Trive Fiskal API Library.
+ *
+ * @category  Trive
+ * @package   Trive_Fiskal
+ * @copyright 2017 Trive d.o.o (http://trive.digital)
+ * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @link      http://trive.digital
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="trive_fiskal_location_save_before">
+        <observer name="trive_fiskal_location_save_before_sync_to_fina" instance="Trive\Fiskal\Observer\LocationSaveBefore"/>
+    </event>
+    <event name="trive_fiskal_location_save_after">
+        <observer name="trive_fiskal_location_save_after_generate_sequence" instance="Trive\Fiskal\Observer\LocationSaveAfter"/>
+    </event>
+    <event name="trive_fiskal_location_delete_before">
+        <observer name="trive_fiskal_location_delete_before_sync_to_fina" instance="Trive\Fiskal\Observer\LocationDeleteBefore"/>
+    </event>
+    <event name="sales_order_save_commit_after">
+        <observer name="trive_fiskal_order_save_commit_after_create_invoice_creditmemo" instance="Trive\Fiskal\Observer\OrderSaveCommitAfter"/>
+    </event>
+    <event name="email_invoice_set_template_vars_before">
+        <observer name="trive_fiskal_email_invoice_set_template_vars_before_add_vars" instance="Trive\Fiskal\Observer\EmailInvoiceSetTemplateVarsBefore"/>
+    </event>
+    <event name="email_creditmemo_set_template_vars_before">
+        <observer name="trive_fiskal_email_creditmemo_set_template_vars_before_add_vars" instance="Trive\Fiskal\Observer\EmailCreditmemoSetTemplateVarsBefore"/>
+    </event>
+</config>

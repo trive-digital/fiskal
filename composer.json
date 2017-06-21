@@ -1,0 +1,18 @@
+{
+  "name": "trive/fiskal",
+  "type": "magento2-module",
+  "description": "Magento 2 Fiskal Extension",
+  "license": "proprietary",
+  "require": {
+    "php": "^7.0",
+    "trive/fiskalapi": "^1.0.0"
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Trive\\Fiskal\\": ""
+    }
+  }
+}

@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Trive Fiskal API Library.
+ *
+ * @category  Trive
+ * @package   Trive_Fiskal
+ * @copyright 2017 Trive d.o.o (http://trive.digital)
+ * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @link      http://trive.digital
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="trive_fiskal" type="text" sortOrder="500" showInDefault="1" showInWebsite="1">
+            <label>Trive - Fiskal</label>
+            <tab>sales</tab>
+            <class>separator-top</class>
+            <resource>Trive_Fiskal::admin_config</resource>
+            <group id="settings" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1">
+                <label>Settings</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="oib" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1">
+                    <label>OIB</label>
+                    <validate>required-entry validate-digits validate-digits-range digits-range-00000000000-99999999999-</validate>
+                </field>
+                <field id="registered_for_pdv" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1">
+                    <label>Registered For PDV</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="certificate_file" translate="label comment" type="file" sortOrder="40" showInDefault="1" showInWebsite="1">
+                    <label>Certificate</label>
+                    <backend_model>Trive\Fiskal\Model\System\Config\Backend\Cert</backend_model>
+                    <comment><![CDATA[Certificate in .pfx or .p12 format]]></comment>
+                </field>
+                <field id="certificate_password" translate="label comment" type="obscure" sortOrder="50" showInDefault="1" showInWebsite="1">
+                    <label>Certificate Password</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <comment><![CDATA[Password used during certificate export]]></comment>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="demo" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1">
+                    <label>Demo</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Requires demo certificate]]></comment>
+                </field>
+                <field id="debug" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1">
+                    <label>Debug mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Logs all requests and responses to system.log]]></comment>
+                </field>
+            </group>
+            <group id="mapping" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1">
+                <label>Mapping</label>
+                <field id="location_mapping" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1">
+                    <label>Location used for this website</label>
+                    <source_model>Trive\Fiskal\Model\System\Config\Source\Location</source_model>
+                </field>
+                <field id="payment_mapping" translate="label comment" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1">
+                    <label>Payment method mapping</label>
+                    <frontend_model>Trive\Fiskal\Block\Adminhtml\System\Config\Form\Field\PaymentMap</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+                <field id="tax_mapping" translate="label comment" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1">
+                    <label>Tax mapping</label>
+                    <frontend_model>Trive\Fiskal\Block\Adminhtml\System\Config\Form\Field\TaxMap</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+            </group>
+            <group id="triggers" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1">
+                <label>Triggers</label>
+                <field id="invoice_trigger_type" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1">
+                    <label>Invoice Trigger Type</label>
+                    <source_model>Trive\Fiskal\Model\System\Config\Source\TriggerType</source_model>
+                </field>
+                <field id="invoice_trigger_status" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1">
+                    <label>Trigger Invoice on Order Status</label>
+                    <depends>
+                        <field id="invoice_trigger_type">2</field>
+                    </depends>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                </field>
+                <field id="invoice_trigger_status_after" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1">
+                    <label>Change Order Status After Invoice Trigger</label>
+                    <depends>
+                        <field id="invoice_trigger_type">2</field>
+                    </depends>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status\Processing</source_model>
+                </field>
+                <field id="creditmemo_trigger_type" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1">
+                    <label>Creditmemo Trigger Type</label>
+                    <source_model>Trive\Fiskal\Model\System\Config\Source\TriggerType</source_model>
+                </field>
+                <field id="creditmemo_trigger_status" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1">
+                    <label>Trigger Creditmemo on Order Status</label>
+                    <depends>
+                        <field id="creditmemo_trigger_type">2</field>
+                    </depends>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                </field>
+                <field id="creditmemo_trigger_status_after" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1">
+                    <label>Change Order Status After Creditmemo Trigger</label>
+                    <depends>
+                        <field id="invoice_trigger_type">2</field>
+                    </depends>
+                    <source_model>Trive\Fiskal\Model\System\Config\Source\Order\Status\Closed</source_model>
+                </field>
+            </group>
+            <group id="templates" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1">
+                <label>Email Templates</label>
+                <field id="auto_add_to_invoice" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1">
+                    <label>Auto Add Fiskal Data To Invoice Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="auto_add_to_creditmemo" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1">
+                    <label>Auto Add Fiskal Data To Creditmemo Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

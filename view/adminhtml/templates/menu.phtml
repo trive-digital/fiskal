@@ -1,0 +1,24 @@
+<?php
+/**
+ * Trive Fiskal API Library.
+ *
+ * @category  Trive
+ * @package   Trive_Fiskal
+ * @copyright 2017 Trive d.o.o (http://trive.digital)
+ * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @link      http://trive.digital
+ */
+?>
+<?php /* @var $block \Trive\Fiskal\Block\Adminhtml\Menu */ ?>
+<div class="trive-fiskal-menu">
+    <div class="actions dropdown closable">
+        <button type="button"
+                class="admin__action-dropdown"
+                data-mage-init='{"dropdown":{}}'
+                data-toggle="dropdown"
+                aria-haspopup="true">
+            <span class="admin__action-dropdown-text"><?php echo $block->escapeHtml(__($block->getTitle())) ?></span>
+        </button>
+        <ul class="dropdown-menu"><?php /* @noEscape */ echo $block->getChildHtml() ?></ul>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Trive Fiskal API Library.
+ *
+ * @category  Trive
+ * @package   Trive_Fiskal
+ * @copyright 2017 Trive d.o.o (http://trive.digital)
+ * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @link      http://trive.digital
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Trive_Fiskal::fiskal" title="Trive - Fiskal" module="Trive_Fiskal" sortOrder="51" action="trive_fiskal/invoice" resource="Trive_Fiskal::fiskal" parent="Magento_Sales::sales_operation"/>
+    </menu>
+</config>

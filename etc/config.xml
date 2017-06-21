@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Trive Fiskal API Library.
+ *
+ * @category  Trive
+ * @package   Trive_Fiskal
+ * @copyright 2017 Trive d.o.o (http://trive.digital)
+ * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @link      http://trive.digital
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <trive_fiskal>
+            <settings>
+                <enabled>1</enabled>
+                <registered_for_pdv>1</registered_for_pdv>
+                <demo>1</demo>
+                <debug>1</debug>
+                <certificate_password backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
+            </settings>
+            <triggers>
+                <invoice_trigger_type>0</invoice_trigger_type>
+                <creditmemo_trigger_type>0</creditmemo_trigger_type>
+            </triggers>
+            <templates>
+                <auto_add_to_invoice>1</auto_add_to_invoice>
+                <auto_add_to_creditmemo>1</auto_add_to_creditmemo>
+            </templates>
+        </trive_fiskal>
+    </default>
+</config>

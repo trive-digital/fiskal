@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Trive Fiskal API Library.
+ *
+ * @category  Trive
+ * @package   Trive_Fiskal
+ * @copyright 2017 Trive d.o.o (http://trive.digital)
+ * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @link      http://trive.digital
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="trive_fiskal_sync" instance="Trive\Fiskal\Cron\Sync" method="execute">
+            <schedule>*/2 * * * *</schedule>
+        </job>
+        <job name="trive_fiskal_sequence" instance="Trive\Fiskal\Cron\Sequence" method="execute">
+            <schedule>0 0 * * *</schedule>
+        </job>
+    </group>
+</config>

@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Trive Fiskal API Library.
+ *
+ * @category  Trive
+ * @package   Trive_Fiskal
+ * @copyright 2017 Trive d.o.o (http://trive.digital)
+ * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @link      http://trive.digital
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Trive_Fiskal::css/menu.css"/>
+    </head>
+    <body>
+        <referenceContainer name="page.main.actions">
+            <block class="Trive\Fiskal\Block\Adminhtml\Menu" name="trive_fiskal_menu">
+                <block class="Trive\Fiskal\Block\Adminhtml\Menu\Item" name="trive_fiskal_menu_item.invoice">
+                    <arguments>
+                        <argument name="path" xsi:type="string">*/invoice/index</argument>
+                        <argument name="label" xsi:type="string">Invoices</argument>
+                        <argument name="resource" xsi:type="string">Trive_Fiskal::fiskal_invoice</argument>
+                        <argument name="controller" xsi:type="string">invoice</argument>
+                    </arguments>
+                </block>
+                <block class="Trive\Fiskal\Block\Adminhtml\Menu\Item" name="trive_fiskal_menu_item.location">
+                    <arguments>
+                        <argument name="path" xsi:type="string">*/location/index</argument>
+                        <argument name="label" xsi:type="string">Locations</argument>
+                        <argument name="resource" xsi:type="string">Trive_Fiskal::fiskal_location</argument>
+                        <argument name="controller" xsi:type="string">location</argument>
+                    </arguments>
+                </block>
+                <block class="Trive\Fiskal\Block\Adminhtml\Menu\Item" name="trive_fiskal_menu_item.settings">
+                    <arguments>
+                        <argument name="path" xsi:type="string">adminhtml/system_config/edit/section/trive_fiskal</argument>
+                        <argument name="label" xsi:type="string">Settings</argument>
+                        <argument name="resource" xsi:type="string">Trive_Fiskal::fiskal</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
