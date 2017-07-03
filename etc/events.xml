@@ -11,15 +11,6 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
-    <event name="trive_fiskal_location_save_before">
-        <observer name="trive_fiskal_location_save_before_sync_to_fina" instance="Trive\Fiskal\Observer\LocationSaveBefore"/>
-    </event>
-    <event name="trive_fiskal_location_save_after">
-        <observer name="trive_fiskal_location_save_after_generate_sequence" instance="Trive\Fiskal\Observer\LocationSaveAfter"/>
-    </event>
-    <event name="trive_fiskal_location_delete_before">
-        <observer name="trive_fiskal_location_delete_before_sync_to_fina" instance="Trive\Fiskal\Observer\LocationDeleteBefore"/>
-    </event>
     <event name="sales_order_save_commit_after">
         <observer name="trive_fiskal_order_save_commit_after_create_invoice_creditmemo" instance="Trive\Fiskal\Observer\OrderSaveCommitAfter"/>
     </event>

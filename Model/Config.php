@@ -32,7 +32,9 @@ class Config extends DataObject
 
     const XML_PATH_DEBUG = 'trive_fiskal/settings/debug';
 
-    const XML_PATH_LOCATION_MAPPING = 'trive_fiskal/mapping/location_mapping';
+    const XML_PATH_LOCATION_CODE = 'trive_fiskal/mapping/location_code';
+
+    const XML_PATH_PAYMENT_DEVICE_CODE = 'trive_fiskal/mapping/payment_device_code';
 
     const XML_PATH_PAYMENT_MAPPING = 'trive_fiskal/mapping/payment_mapping';
 
@@ -216,14 +218,28 @@ class Config extends DataObject
     }
 
     /**
-     * Get location mapping from stored config
+     * Get location code from stored config
      *
-     * @return int
+     * @return string
      */
-    public function getLocationMapping()
+    public function getLocationCode()
     {
         return $this->scopeConfig->getValue(
-            self::XML_PATH_LOCATION_MAPPING,
+            self::XML_PATH_LOCATION_CODE,
+            ScopeInterface::SCOPE_STORE,
+            $this->storeId
+        );
+    }
+
+    /**
+     * Get payment device code from stored config
+     *
+     * @return string
+     */
+    public function getPaymentDeviceCode()
+    {
+        return $this->scopeConfig->getValue(
+            self::XML_PATH_PAYMENT_DEVICE_CODE,
             ScopeInterface::SCOPE_STORE,
             $this->storeId
         );

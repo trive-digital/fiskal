@@ -78,6 +78,14 @@ class AbstractTemplate
         ];
     }
 
+    /**
+     * Append fiskal text to bottom of invoice/creditmemo email
+     *
+     * @param AbstractTemplateSubject $subject
+     * @param                         $variables
+     *
+     * @return $this|array
+     */
     public function beforeGetProcessedTemplate(
         AbstractTemplateSubject $subject,
         $variables

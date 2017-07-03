@@ -11,9 +11,6 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="Trive\Fiskal\Api\LocationRepositoryInterface" type="Trive\Fiskal\Model\LocationRepository"/>
-    <preference for="Trive\Fiskal\Api\Data\LocationInterface" type="Trive\Fiskal\Model\Location"/>
-    <preference for="Trive\Fiskal\Api\Data\LocationSearchResultsInterface" type="Trive\Fiskal\Model\LocationSearchResult"/>
     <preference for="Trive\Fiskal\Api\InvoiceRepositoryInterface" type="Trive\Fiskal\Model\InvoiceRepository"/>
     <preference for="Trive\Fiskal\Api\Data\InvoiceInterface" type="Trive\Fiskal\Model\Invoice"/>
     <preference for="Trive\Fiskal\Api\Data\InvoiceSearchResultsInterface" type="Trive\Fiskal\Model\InvoiceSearchResult"/>
@@ -27,34 +24,13 @@
             </argument>
         </arguments>
     </type>
-    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
-        <arguments>
-            <argument name="collections" xsi:type="array">
-                <item name="trive_fiskal_location_listing_data_source" xsi:type="string">Trive\Fiskal\Model\ResourceModel\Location\Listing\Collection</item>
-            </argument>
-        </arguments>
-    </type>
     <type name="Trive\Fiskal\Model\ResourceModel\Invoice\Listing\Collection">
         <arguments>
             <argument name="mainTable" xsi:type="string">trive_fiskal_invoice</argument>
             <argument name="resourceModel" xsi:type="string">Trive\Fiskal\Model\ResourceModel\Invoice</argument>
         </arguments>
     </type>
-    <type name="Trive\Fiskal\Model\ResourceModel\Location\Listing\Collection">
-        <arguments>
-            <argument name="mainTable" xsi:type="string">trive_fiskal_location</argument>
-            <argument name="resourceModel" xsi:type="string">Trive\Fiskal\Model\ResourceModel\Location</argument>
-        </arguments>
-    </type>
     <virtualType name="TriveFiskalInvoiceListingFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
-        <arguments>
-            <argument name="appliers" xsi:type="array">
-                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
-                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
-            </argument>
-        </arguments>
-    </virtualType>
-    <virtualType name="TriveFiskalLocationListingFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
         <arguments>
             <argument name="appliers" xsi:type="array">
                 <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
@@ -68,13 +44,10 @@
             <argument name="filterPool" xsi:type="object" shared="false">TriveFiskalInvoiceListingFilterPool</argument>
         </arguments>
     </virtualType>
-    <virtualType name="TriveFiskalLocationListingDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
-        <arguments>
-            <argument name="collection" xsi:type="object" shared="false">Trive\Fiskal\Model\ResourceModel\Location\Collection</argument>
-            <argument name="filterPool" xsi:type="object" shared="false">TriveFiskalLocationListingFilterPool</argument>
-        </arguments>
-    </virtualType>
     <type name="Magento\Email\Model\AbstractTemplate">
         <plugin name="abstractTemplateAddFiskalText" type="\Trive\Fiskal\Plugin\AbstractTemplate"/>
+    </type>
+    <type name="Magento\Config\Model\Config">
+        <plugin name="systemConfigGenerateSequence" type="Trive\Fiskal\Plugin\Config"/>
     </type>
 </config>

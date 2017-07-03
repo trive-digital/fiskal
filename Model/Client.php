@@ -14,7 +14,6 @@ namespace Trive\Fiskal\Model;
 use Psr\Log\LoggerInterface;
 use Trive\FiskalAPI\Client as API;
 use Trive\FiskalAPI\Request;
-use Trive\FiskalAPI\Request\BusinessLocationRequest;
 use Trive\FiskalAPI\Request\InvoiceRequest;
 use Magento\Framework\DataObject;
 
@@ -171,20 +170,6 @@ class Client extends DataObject
         }
 
         return $return;
-    }
-
-    /**
-     * Send location request
-     *
-     * @param $businessLocation
-     *
-     * @return DataObject
-     */
-    public function locationRequest($businessLocation)
-    {
-        $request = new BusinessLocationRequest($businessLocation);
-
-        return $this->sendRequest($request);
     }
 
     /**

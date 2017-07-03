@@ -16,7 +16,6 @@
             <resource id="Magento_Backend::admin">
                 <resource id="Trive_Fiskal::fiskal" title="Trive - Fiskal" sortOrder="70">
                     <resource id="Trive_Fiskal::fiskal_invoice" title="Invoices" sortOrder="10"/>
-                    <resource id="Trive_Fiskal::fiskal_location" title="Locations" sortOrder="20"/>
                 </resource>
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">

@@ -25,14 +25,6 @@
                         <argument name="controller" xsi:type="string">invoice</argument>
                     </arguments>
                 </block>
-                <block class="Trive\Fiskal\Block\Adminhtml\Menu\Item" name="trive_fiskal_menu_item.location">
-                    <arguments>
-                        <argument name="path" xsi:type="string">*/location/index</argument>
-                        <argument name="label" xsi:type="string">Locations</argument>
-                        <argument name="resource" xsi:type="string">Trive_Fiskal::fiskal_location</argument>
-                        <argument name="controller" xsi:type="string">location</argument>
-                    </arguments>
-                </block>
                 <block class="Trive\Fiskal\Block\Adminhtml\Menu\Item" name="trive_fiskal_menu_item.settings">
                     <arguments>
                         <argument name="path" xsi:type="string">adminhtml/system_config/edit/section/trive_fiskal</argument>

@@ -16,7 +16,6 @@ use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SortOrderBuilder;
 use Trive\Fiskal\Model\Config;
 use Trive\Fiskal\Api\InvoiceRepositoryInterface as FiskalInvoiceRepositoryInterface;
-use Trive\Fiskal\Api\LocationRepositoryInterface;
 use Trive\Fiskal\Api\SequenceRepositoryInterface;
 use Magento\Sales\Api\InvoiceRepositoryInterface;
 use Magento\Sales\Api\CreditmemoRepositoryInterface;
@@ -40,11 +39,6 @@ class Sync
      * @var FiskalInvoiceRepositoryInterface
      */
     protected $fiskalInvoiceRepository;
-
-    /**
-     * @var LocationRepositoryInterface
-     */
-    protected $locationRepository;
 
     /**
      * @var SearchCriteriaBuilder
@@ -79,7 +73,6 @@ class Sync
      * @param SortOrderBuilder                 $sortOrderBuilder
      * @param Config                           $config
      * @param FiskalInvoiceRepositoryInterface $fiskalInvoiceRepository
-     * @param LocationRepositoryInterface      $locationRepository
      * @param SequenceRepositoryInterface      $sequenceRepository
      * @param InvoiceRepositoryInterface       $invoiceRepository
      * @param CreditmemoRepositoryInterface    $creditmemoRepository
@@ -98,7 +91,6 @@ class Sync
         SortOrderBuilder $sortOrderBuilder,
         Config $config,
         FiskalInvoiceRepositoryInterface $fiskalInvoiceRepository,
-        LocationRepositoryInterface $locationRepository,
         SequenceRepositoryInterface $sequenceRepository,
         InvoiceRepositoryInterface $invoiceRepository,
         CreditmemoRepositoryInterface $creditmemoRepository,
@@ -118,7 +110,6 @@ class Sync
         $this->client = new InvoiceClient(
             $config,
             $fiskalInvoiceRepository,
-            $locationRepository,
             $sequenceRepository,
             $invoiceRepository,
             $creditmemoRepository,

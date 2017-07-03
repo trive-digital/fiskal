@@ -17,7 +17,7 @@ interface SequenceInterface extends ExtensibleDataInterface
 {
     const ID = 'sequence_id';
 
-    const LOCATION_ID = 'location_id';
+    const LOCATION_CODE = 'location_code';
 
     const YEAR = 'year';
 
@@ -38,14 +38,14 @@ interface SequenceInterface extends ExtensibleDataInterface
     /**
      * @return string|null
      */
-    public function getLocationId();
+    public function getLocationCode();
 
     /**
-     * @param string $locationId
+     * @param string $locationCode
      *
      * @return $this
      */
-    public function setLocationId($locationId);
+    public function setLocationCode($locationCode);
 
     /**
      * @return string|null
@@ -60,7 +60,7 @@ interface SequenceInterface extends ExtensibleDataInterface
     public function setYear($year);
 
     /**
-     * @return string
+     * @return int
      */
     public function getIncrement();
 

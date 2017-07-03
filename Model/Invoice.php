@@ -56,14 +56,24 @@ class Invoice extends AbstractExtensibleModel implements InvoiceInterface
         return $this->setData(InvoiceInterface::STORE_ID, $storeId);
     }
 
-    public function getLocationId()
+    public function getLocationCode()
     {
-        return $this->_getData(InvoiceInterface::LOCATION_ID);
+        return $this->_getData(InvoiceInterface::LOCATION_CODE);
     }
 
-    public function setLocationId($locationId)
+    public function setLocationCode($locationCode)
     {
-        return $this->setData(InvoiceInterface::LOCATION_ID, $locationId);
+        return $this->setData(InvoiceInterface::LOCATION_CODE, $locationCode);
+    }
+
+    public function getPaymentDeviceCode()
+    {
+        return $this->_getData(InvoiceInterface::PAYMENT_DEVICE_CODE);
+    }
+
+    public function setPaymentDeviceCode($paymentDeviceCode)
+    {
+        return $this->setData(InvoiceInterface::PAYMENT_DEVICE_CODE, $paymentDeviceCode);
     }
 
     public function getIncrementId()

@@ -14,7 +14,6 @@ namespace Trive\Fiskal\Model\Client;
 use Trive\Fiskal\Model\Client;
 use Trive\Fiskal\Model\Config;
 use Trive\Fiskal\Api\InvoiceRepositoryInterface as FiskalInvoiceRepositoryInterface;
-use Trive\Fiskal\Api\LocationRepositoryInterface;
 use Trive\Fiskal\Api\SequenceRepositoryInterface;
 use Magento\Sales\Api\InvoiceRepositoryInterface;
 use Magento\Sales\Api\CreditmemoRepositoryInterface;
@@ -56,11 +55,6 @@ class Invoice extends Client
      * @var FiskalInvoiceRepositoryInterface
      */
     protected $fiskalInvoiceRepository;
-
-    /**
-     * @var LocationRepositoryInterface
-     */
-    protected $locationRepository;
 
     /**
      * @var SequenceRepositoryInterface
@@ -174,7 +168,6 @@ class Invoice extends Client
      *
      * @param Config                           $config
      * @param FiskalInvoiceRepositoryInterface $fiskalInvoiceRepository
-     * @param LocationRepositoryInterface      $locationRepository
      * @param SequenceRepositoryInterface      $sequenceRepository
      * @param InvoiceRepositoryInterface       $invoiceRepository
      * @param CreditmemoRepositoryInterface    $creditmemoRepository
@@ -192,7 +185,6 @@ class Invoice extends Client
     public function __construct(
         Config $config,
         FiskalInvoiceRepositoryInterface $fiskalInvoiceRepository,
-        LocationRepositoryInterface $locationRepository,
         SequenceRepositoryInterface $sequenceRepository,
         InvoiceRepositoryInterface $invoiceRepository,
         CreditmemoRepositoryInterface $creditmemoRepository,
@@ -208,7 +200,6 @@ class Invoice extends Client
     ) {
         $this->config = $config;
         $this->fiskalInvoiceRepository = $fiskalInvoiceRepository;
-        $this->locationRepository = $locationRepository;
         $this->sequenceRepository = $sequenceRepository;
         $this->invoiceRepository = $invoiceRepository;
         $this->creditmemoRepository = $creditmemoRepository;
@@ -382,17 +373,17 @@ class Invoice extends Client
     }
 
     /**
-     * Get invoice sequence by location id
+     * Get invoice sequence by location code
      *
-     * @param $locationId
+     * @param $locationCode
      *
      * @return mixed|null|SequenceInterface
      */
-    public function getSequence($locationId)
+    public function getSequence($locationCode)
     {
         $this->searchCriteriaBuilder->addFilter(
-            SequenceInterface::LOCATION_ID,
-            $locationId
+            SequenceInterface::LOCATION_CODE,
+            $locationCode
         )->addFilter(
             SequenceInterface::YEAR,
             $this->getCurrentYear()
@@ -498,15 +489,14 @@ class Invoice extends Client
         $successful = false;
         $this->config->getPaymentMapping();
         $this->config->getTaxMapping();
-        $location = $this->locationRepository->getById($fiskalInvoice->getLocationId());
 
-        $sequence = $this->getSequence($location->getId());
+        $sequence = $this->getSequence($fiskalInvoice->getLocationCode());
         if ($sequence && $sequence->getId()) {
             $increment = $sequence->getIncrement() + 1;
             $invoiceNumber = $this->getInvoiceNumber(
                 $increment,
-                $location->getCode(),
-                $location->getPaymentDeviceCode()
+                $fiskalInvoice->getLocationCode(),
+                $fiskalInvoice->getPaymentDeviceCode()
             );
 
             $preparedInvoice = null;

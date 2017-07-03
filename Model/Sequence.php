@@ -46,14 +46,14 @@ class Sequence extends AbstractExtensibleModel implements SequenceInterface
         return $this->setData(SequenceInterface::ID, $identifier);
     }
 
-    public function getLocationId()
+    public function getLocationCode()
     {
-        return $this->_getData(SequenceInterface::LOCATION_ID);
+        return $this->_getData(SequenceInterface::LOCATION_CODE);
     }
 
-    public function setLocationId($locationId)
+    public function setLocationCode($locationCode)
     {
-        return $this->setData(SequenceInterface::LOCATION_ID, $locationId);
+        return $this->setData(SequenceInterface::LOCATION_CODE, $locationCode);
     }
 
     public function getYear()

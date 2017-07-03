@@ -95,13 +95,17 @@
                 </item>
             </argument>
         </column>
-        <column name="location" class="Trive\Fiskal\Ui\Component\Listing\Column\Location">
+        <column name="location_code">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
-                    <item name="visible" xsi:type="boolean">true</item>
-                    <item name="label" xsi:type="string" translate="true">Location</item>
+                    <item name="label" xsi:type="string" translate="true">Location Code</item>
+                </item>
+            </argument>
+        </column>
+        <column name="payment_device_code">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Payment Device Code</item>
                 </item>
             </argument>
         </column>

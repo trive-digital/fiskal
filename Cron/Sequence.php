@@ -14,8 +14,10 @@ namespace Trive\Fiskal\Cron;
 use Magento\Framework\Api\FilterBuilder;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SortOrderBuilder;
-use Trive\Fiskal\Api\LocationRepositoryInterface;
+use Trive\Fiskal\Model\Config;
+use Magento\Store\Model\StoreManagerInterface;
 use Trive\Fiskal\Api\SequenceRepositoryInterface;
+use Trive\Fiskal\Api\Data\SequenceInterface;
 use Trive\Fiskal\Api\Data\SequenceInterfaceFactory;
 
 /**
@@ -24,9 +26,29 @@ use Trive\Fiskal\Api\Data\SequenceInterfaceFactory;
 class Sequence
 {
     /**
-     * @var LocationRepositoryInterface
+     * @var FilterBuilder
      */
-    protected $locationRepository;
+    protected $filterBuilder;
+
+    /**
+     * @var SearchCriteriaBuilder
+     */
+    protected $searchCriteriaBuilder;
+
+    /**
+     * @var SortOrderBuilder
+     */
+    protected $sortOrderBuilder;
+
+    /**
+     * @var Config
+     */
+    protected $config;
+
+    /**
+     * @var StoreManagerInterface
+     */
+    protected $storeManager;
 
     /**
      * @var SequenceRepositoryInterface
@@ -39,27 +61,13 @@ class Sequence
     protected $sequenceFactory;
 
     /**
-     * @var SearchCriteriaBuilder
-     */
-    protected $searchCriteriaBuilder;
-
-    /**
-     * @var FilterBuilder
-     */
-    protected $filterBuilder;
-
-    /**
-     * @var SortOrderBuilder
-     */
-    private $sortOrderBuilder;
-
-    /**
      * Sequence constructor.
      *
      * @param FilterBuilder               $filterBuilder
      * @param SearchCriteriaBuilder       $searchCriteriaBuilder
      * @param SortOrderBuilder            $sortOrderBuilder
-     * @param LocationRepositoryInterface $locationRepository
+     * @param Config                      $config
+     * @param StoreManagerInterface       $storeManager
      * @param SequenceRepositoryInterface $sequenceRepository
      * @param SequenceInterfaceFactory    $sequenceFactory
      */
@@ -67,14 +75,16 @@ class Sequence
         FilterBuilder $filterBuilder,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         SortOrderBuilder $sortOrderBuilder,
-        LocationRepositoryInterface $locationRepository,
+        Config $config,
+        StoreManagerInterface $storeManager,
         SequenceRepositoryInterface $sequenceRepository,
         SequenceInterfaceFactory $sequenceFactory
     ) {
         $this->filterBuilder = $filterBuilder;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->sortOrderBuilder = $sortOrderBuilder;
-        $this->locationRepository = $locationRepository;
+        $this->config = $config;
+        $this->storeManager = $storeManager;
         $this->sequenceRepository = $sequenceRepository;
         $this->sequenceFactory = $sequenceFactory;
     }
@@ -84,11 +94,31 @@ class Sequence
      *
      * @return string
      */
-    public function getCurrentYear()
+    private function getCurrentYear()
     {
         $date = new \DateTime();
 
         return $date->format('Y');
+    }
+
+    /**
+     * Create sequences for each store
+     *
+     * @return $this
+     */
+    private function createSequences()
+    {
+        foreach ($this->storeManager->getStores() as $store) {
+            $this->config->setStoreId($store->getId());
+
+            /** @var SequenceInterface $sequence */
+            $sequence = $this->sequenceFactory->create();
+            $sequence->setLocationCode($this->config->getLocationCode());
+            $sequence->setYear($this->getCurrentYear());
+            $this->sequenceRepository->save($sequence);
+        }
+
+        return $this;
     }
 
     /**
@@ -101,24 +131,5 @@ class Sequence
     public function execute()
     {
         $this->createSequences();
-    }
-
-    /**
-     * Create sequences for each location
-     *
-     * @return $this
-     */
-    private function createSequences()
-    {
-        $searchResults = $this->locationRepository->getList($this->searchCriteriaBuilder->create())->getItems();
-
-        foreach (array_keys($searchResults) as $locationId) {
-            $sequence = $this->sequenceFactory->create();
-            $sequence->setLocationId($locationId);
-            $sequence->setYear($this->getCurrentYear());
-            $this->sequenceRepository->save($sequence);
-        }
-
-        return $this;
     }
 }

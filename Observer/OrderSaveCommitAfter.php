@@ -135,7 +135,8 @@ class OrderSaveCommitAfter implements ObserverInterface
 
             $fiskalInvoice = $this->invoiceDataFactory->create();
             $fiskalInvoice->setStoreId($order->getStoreId())
-                          ->setLocationId($this->config->getLocationMapping())
+                          ->setLocationCode($this->config->getLocationCode())
+                          ->setPaymentDeviceCode($this->config->getPaymentDeviceCode())
                           ->setEntityType(InvoiceInterface::ENTITY_TYPE_INVOICE)
                           ->setEntityId($invoice->getEntityId());
             try {
@@ -179,7 +180,8 @@ class OrderSaveCommitAfter implements ObserverInterface
 
             $fiskalInvoice = $this->invoiceDataFactory->create();
             $fiskalInvoice->setStoreId($order->getStoreId())
-                          ->setLocationId($this->config->getLocationMapping())
+                          ->setLocationCode($this->config->getLocationCode())
+                          ->setPaymentDeviceCode($this->config->getPaymentDeviceCode())
                           ->setEntityType(InvoiceInterface::ENTITY_TYPE_CREDITMEMO)
                           ->setEntityId($creditmemo->getEntityId());
             try {

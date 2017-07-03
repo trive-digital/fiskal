@@ -19,7 +19,9 @@ interface InvoiceInterface extends ExtensibleDataInterface
 
     const STORE_ID = 'store_id';
 
-    const LOCATION_ID = 'location_id';
+    const LOCATION_CODE = 'location_code';
+
+    const PAYMENT_DEVICE_CODE = 'payment_device_code';
 
     const INCREMENT_ID = 'increment_id';
 
@@ -68,16 +70,28 @@ interface InvoiceInterface extends ExtensibleDataInterface
     public function setStoreId($storeId);
 
     /**
-     * @return int
+     * @return string
      */
-    public function getLocationId();
+    public function getLocationCode();
 
     /**
-     * @param int $locationId
+     * @param string $locationCode
      *
      * @return $this
      */
-    public function setLocationId($locationId);
+    public function setLocationCode($locationCode);
+
+    /**
+     * @return string
+     */
+    public function getPaymentDeviceCode();
+
+    /**
+     * @param string $paymentDeviceCode
+     *
+     * @return $this
+     */
+    public function setPaymentDeviceCode($paymentDeviceCode);
 
     /**
      * @return int

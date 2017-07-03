@@ -26,137 +26,18 @@ class InstallSchema implements InstallSchemaInterface
     {
         $setup->startSetup();
 
-        /**
-         * Create table 'trive_fiskal_location'
-         */
-        $table = $setup->getConnection()->newTable(
-            $setup->getTable('trive_fiskal_location')
-        )->addColumn(
-            'location_id',
-            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-            null,
-            ['identity' => true, 'unsigned' => true, 'nullable' => false, 'primary' => true],
-            'Location ID'
-        )->addColumn(
-            'created_at',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
-            null,
-            ['nullable' => false],
-            'Created At'
-        )->addColumn(
-            'synced_at',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
-            null,
-            ['nullable' => false],
-            'Synced At'
-        )->addColumn(
-            'code',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-            20,
-            ['nullable' => false],
-            'Business location code'
-        )->addColumn(
-            'payment_device_code',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-            20,
-            ['nullable' => false],
-            'Payment device code'
-        )->addColumn(
-            'street',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-            100,
-            ['nullable' => true],
-            'Business location street'
-        )->addColumn(
-            'house_number',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-            4,
-            ['nullable' => true],
-            'Business location house number'
-        )->addColumn(
-            'house_number_suffix',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-            4,
-            ['nullable' => true],
-            'Business location house number suffix'
-        )->addColumn(
-            'zip_code',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-            12,
-            ['nullable' => true],
-            'Business location ZIP code'
-        )->addColumn(
-            'settlement',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-            35,
-            ['nullable' => true],
-            'Business location settlement'
-        )->addColumn(
-            'city',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-            35,
-            ['nullable' => true],
-            'Business location city'
-        )->addColumn(
-            'other_type',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-            100,
-            ['nullable' => true],
-            'Other type of business location'
-        )->addColumn(
-            'business_hours',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-            100,
-            ['nullable' => false],
-            'Business location business hours'
-        )->addColumn(
-            'valid_from',
-            \Magento\Framework\DB\Ddl\Table::TYPE_DATE,
-            null,
-            ['nullable' => false],
-            'Business location valid from date'
-        )->addColumn(
-            'closing_code',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-            100,
-            ['nullable' => true],
-            'Business location closing code'
-        )->addColumn(
-            'specific_purpose',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-            100,
-            ['nullable' => true],
-            'Business location specific purpose'
-        )->addColumn(
-            'use_full_address',
-            \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
-            null,
-            ['nullable' => false],
-            'Use full address for business location'
-        )->addIndex(
-            $setup->getIdxName(
-                'trive_fiskal_location',
-                ['code'],
-                AdapterInterface::INDEX_TYPE_UNIQUE
-            ),
-            ['code'],
-            ['type' => AdapterInterface::INDEX_TYPE_UNIQUE]
-        )->addIndex(
-            $setup->getIdxName(
-                'trive_fiskal_location',
-                ['code', 'payment_device_code'],
-                AdapterInterface::INDEX_TYPE_UNIQUE
-            ),
-            ['code', 'payment_device_code'],
-            ['type' => AdapterInterface::INDEX_TYPE_UNIQUE]
-        )->setComment(
-            'Fiskal Locations'
-        );
-        $setup->getConnection()->createTable($table);
+        $this->createCertTable($setup);
+        $this->createInvoiceTable($setup);
+        $this->createSequenceTable($setup);
+    }
 
-        /**
-         * Create table 'trive_fiskal_cert'
-         */
+    /**
+     * Create table 'trive_fiskal_cert'
+     *
+     * @param SchemaSetupInterface $setup
+     */
+    private function createCertTable($setup)
+    {
         $table = $setup->getConnection()->newTable(
             $setup->getTable('trive_fiskal_cert')
         )->addColumn(
@@ -196,10 +77,15 @@ class InstallSchema implements InstallSchemaInterface
             'Fiskal Certificate Table'
         );
         $setup->getConnection()->createTable($table);
+    }
 
-        /**
-         * Create table 'trive_fiskal_invoice'
-         */
+    /**
+     * Create table 'trive_fiskal_invoice'
+     *
+     * @param SchemaSetupInterface $setup
+     */
+    private function createInvoiceTable($setup)
+    {
         $table = $setup->getConnection()->newTable(
             $setup->getTable('trive_fiskal_invoice')
         )->addColumn(
@@ -215,11 +101,17 @@ class InstallSchema implements InstallSchemaInterface
             ['unsigned' => true, 'nullable' => false, 'default' => '0'],
             'Store Id'
         )->addColumn(
-            'location_id',
-            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-            null,
-            ['unsigned' => true, 'nullable' => false, 'default' => '0'],
-            'Location Id'
+            'location_code',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            20,
+            ['nullable' => false],
+            'Location code'
+        )->addColumn(
+            'payment_device_code',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            20,
+            ['nullable' => false],
+            'Payment device code'
         )->addColumn(
             'increment_id',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
@@ -295,10 +187,16 @@ class InstallSchema implements InstallSchemaInterface
             'Fiskal Invoice Table'
         );
         $setup->getConnection()->createTable($table);
+    }
 
-        /**
-         * Create table 'trive_fiskal_sequence'
-         */
+    /**
+     * Create table 'trive_fiskal_sequence'
+     *
+     * @param SchemaSetupInterface $setup
+     */
+    private function createSequenceTable($setup)
+    {
+
         $table = $setup->getConnection()->newTable(
             $setup->getTable('trive_fiskal_sequence')
         )->addColumn(
@@ -308,11 +206,11 @@ class InstallSchema implements InstallSchemaInterface
             ['identity' => true, 'unsigned' => true, 'nullable' => false, 'primary' => true],
             'Sequence Id'
         )->addColumn(
-            'location_id',
-            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-            null,
-            ['unsigned' => true, 'nullable' => false, 'default' => '0'],
-            'Location Id'
+            'location_code',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            20,
+            ['nullable' => false],
+            'Location code'
         )->addColumn(
             'year',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
@@ -328,10 +226,10 @@ class InstallSchema implements InstallSchemaInterface
         )->addIndex(
             $setup->getIdxName(
                 'trive_fiskal_sequence',
-                ['location_id', 'year'],
+                ['location_code', 'year'],
                 \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE
             ),
-            ['location_id', 'year'],
+            ['location_code', 'year'],
             ['type' => \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE]
         );
         $setup->getConnection()->createTable($table);

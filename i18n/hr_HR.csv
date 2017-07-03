@@ -9,15 +9,8 @@ Save,Snimi
 "Fiskal Tax","Fiskal porez"
 "Add Tax Class Map","Dodaj mapiranje poreza"
 Invoices,Računi
-"You deleted the location.","Obrisali ste poslovni prostor."
-"Edit Location","Uredi poslovni prostor"
-"New Location","Novi poslovni prostor"
-Locations,Poslovni prostori
-"This location no longer exists.","Poslovni prostor ne postoji."
-"You saved the location.","Snimili ste poslovni prostor."
 "The certificate does not exist.","Certifikat ne postoji."
 "Invoice not found.","Račun ne postoji."
-"Location not found.","Poslovni prostor ne postoji."
 "Fiskal Invoice for this entity","Fiskalizirani račun"
 "Sequence not found.","Sljednost ne postoji."
 "The certificate file is empty.","Datoteka certifikata je prazna."
@@ -25,7 +18,6 @@ Disabled,Onemogućeno
 "Magento Invoice / Creditmemo Creation","Izrada Magento računa / storno računa"
 "Order Status Change","Promjena statusa narudžbe"
 Edit,Uredi
-"Are you sure you want to delete location with id: %1?","Jeste li sigurni da želite obrisati lokaciju id: %1?"
 "Trive - Fiskal","Trive - Fiskal"
 Settings,Postavke
 Enabled,Omogućeno
@@ -38,9 +30,8 @@ Certificate,Certifikat
 Demo,Demo način rada
 "Requires demo certificate","Zahtjeva demo certifikat"
 "Debug mode","Debug način rada"
-"Logs all requests and responses to system.log","Sprema sve pozive i odgovore u system.log"
+"Logs all requests and responses to debug.log","Sprema sve pozive i odgovore u debug.log"
 Mapping,Mapiranje
-"Location used for this website","Poslovni prostor korišten za ovaj website"
 "Payment method mapping","Mapiranje načina plaćanja"
 "Tax mapping","Mapiranje poreza"
 Triggers,Okidači
@@ -57,6 +48,8 @@ ID,ID
 Entity,Entitet
 Store,Trgovina
 Location,Poslovni prostor
+Location Code,Oznaka poslovnog prostora
+Payment Device Code,Oznaka naplatnog uređaja
 "Fiskal Invoice Number","Broj računa"
 "Created At","Izdan"
 JIR,JIR
@@ -64,26 +57,4 @@ ZKI,ZKI
 "Synced At","Fiskaliziran"
 "Error Message","Greška"
 Back,Povratak
-"Use Full Address","Koristi punu adresu"
 Code,Oznaka
-"Location code, e.g. SHOP-1","Oznaka poslovnog prostora, npr. SHOP-1"
-"Payment Device Code","Oznaka naplatnog uređaja"
-"Payment device code, e.g. 1, no leading zeroes","Oznaka naplatnog uređaja, npr. 1, bez početnih nula"
-Street,Ulica
-"House Number","Kućni broj"
-"House number (without suffix)","Kućni broj (bez dodatka)"
-"House Number Suffix","Dodatak kućnom broju"
-"House number suffix, e.g. for 41A, ""A"" should be entered in this field","Dodatak kućnom broju, npr. za 41A, ""A"" treba biti uneseno u ovo polje"
-"ZIP Code","Poštanski broj"
-Settlement,Naselje
-City,Grad
-"Other Type","Ostali tipovi poslovnog prostora"
-"Description of location, if no address is available. e.g. ""Webshop""","Opis poslovnog prostora, ako adresa nije dostupna. npr. ""Webshop"""
-"Business Hours","Radno vrijeme"
-"Business hours in form of text, e.g. ""Pon-Sub: 08:00-21:00, Ned: 09:00-14:00""","Radno vrijeme u tekstualnom formatu, npr. ""Pon-Sub: 08:00-21:00, Ned: 09:00-14:00"""
-"Valid From","Vrijedi od"
-"Date location is valid from","Poslovni prostor vrijedi od datuma"
-"Create New Location","Izradi novi poslovni prostor"
-"Delete items","Obriši stavke"
-"Are you sure you want to delete selected items?","Jeste li sigurni da želite obrisati označene stavke?"
-Address,Adresa
