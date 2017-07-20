@@ -472,9 +472,12 @@ class Invoice extends Client
         }
 
         $order = $object->getOrder();
-        $order->addStatusHistoryComment($message, $status)
-              ->setIsCustomerNotified(false)
-              ->save();
+
+        $history = $order->addStatusHistoryComment($message, $status);
+        $history->setIsCustomerNotified(false);
+        $history->save();
+
+        $order->save();
     }
 
     /**

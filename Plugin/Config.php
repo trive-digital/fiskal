@@ -78,7 +78,10 @@ class Config
         $sequence = $this->sequenceFactory->create();
         $sequence->setLocationCode($locationCode);
         $sequence->setYear($this->getCurrentYear());
-        $this->sequenceRepository->save($sequence);
+        try {
+            $this->sequenceRepository->save($sequence);
+        } catch (\Exception $e) {
+        }
 
         return $sequence;
     }
