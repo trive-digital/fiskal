@@ -560,7 +560,7 @@ class Invoice extends Client
         $storeTaxClasses = $this->getStoreTaxClasses();
 
         $taxClasses = [];
-        if ($invoice->getTaxAmount()) {
+        if (floatval($invoice->getTaxAmount()) > 0) {
             foreach ($invoice->getAllItems() as $item) {
                 $taxClass = $storeTaxClasses[$item->getOrderItem()->getProduct()->getTaxClassId()];
                 $taxClassId = $taxClass->getClassId();
@@ -585,7 +585,7 @@ class Invoice extends Client
             }
         }
 
-        if ($invoice->getShippingTaxAmount()) {
+        if (floatval($invoice->getShippingTaxAmount()) > 0) {
             $taxClass = $storeTaxClasses[$this->taxHelper->getShippingTaxClass($invoice->getStoreId())];
             $taxClassId = $taxClass->getClassId();
             $taxClasses[$taxClassId] = [
@@ -667,7 +667,7 @@ class Invoice extends Client
         $storeTaxClasses = $this->getStoreTaxClasses();
 
         $taxClasses = [];
-        if ($creditmemo->getTaxAmount()) {
+        if (floatval($creditmemo->getTaxAmount()) > 0) {
             foreach ($creditmemo->getAllItems() as $item) {
                 $taxClass = $storeTaxClasses[$item->getOrderItem()->getProduct()->getTaxClassId()];
                 $taxClassId = $taxClass->getClassId();
@@ -692,7 +692,7 @@ class Invoice extends Client
             }
         }
 
-        if ($creditmemo->getShippingTaxAmount()) {
+        if (floatval($creditmemo->getShippingTaxAmount()) > 0) {
             $taxClass = $storeTaxClasses[$this->taxHelper->getShippingTaxClass($creditmemo->getStoreId())];
             $taxClassId = $taxClass->getClassId();
             $taxClasses[$taxClassId] = [
