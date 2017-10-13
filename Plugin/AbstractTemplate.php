@@ -15,7 +15,7 @@ use Magento\Sales\Model\Order\Email\Container\InvoiceIdentity;
 use Magento\Sales\Model\Order\Email\Container\CreditmemoIdentity;
 use Magento\Email\Model\AbstractTemplate as AbstractTemplateSubject;
 use Trive\Fiskal\Api\Data\InvoiceInterface;
-use Trive\Fiskal\Model\Config;
+use Trive\Fiskal\Model\Config as ConfigModel;
 use Magento\Store\Model\StoreManagerInterface;
 
 class AbstractTemplate
@@ -47,7 +47,7 @@ class AbstractTemplate
     /**
      * Store config
      *
-     * @var Config
+     * @var ConfigModel
      */
     protected $config;
 
@@ -57,12 +57,12 @@ class AbstractTemplate
      * @param InvoiceIdentity       $invoiceIdentity
      * @param CreditmemoIdentity    $creditmemoIdentity
      * @param StoreManagerInterface $storeManager
-     * @param Config                $config
+     * @param ConfigModel           $config
      */
     public function __construct(
         InvoiceIdentity $invoiceIdentity,
         CreditmemoIdentity $creditmemoIdentity,
-        Config $config,
+        ConfigModel $config,
         StoreManagerInterface $storeManager
     ) {
         $this->invoiceIdentity = $invoiceIdentity;
