@@ -2,6 +2,7 @@
   "name": "trive/fiskal",
   "type": "magento2-module",
   "description": "Magento 2 Fiskal Extension",
+  "version": "1.0.5",
   "license": "proprietary",
   "require": {
     "php": "^7.0",

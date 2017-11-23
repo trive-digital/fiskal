@@ -166,7 +166,7 @@ class Client extends DataObject
         );
 
         if ($this->client->isDebug()) {
-            $this->logger->debug($return->toString());
+            $this->logger->critical($return->toString());
         }
 
         return $return;

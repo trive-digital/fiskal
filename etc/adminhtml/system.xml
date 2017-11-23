@@ -50,7 +50,7 @@
                 <field id="debug" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1">
                     <label>Debug mode</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment><![CDATA[Logs all requests and responses to debug.log]]></comment>
+                    <comment><![CDATA[Logs all requests and responses to system.log]]></comment>
                 </field>
             </group>
             <group id="mapping" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1">
