@@ -155,18 +155,29 @@ class Client extends DataObject
      */
     public function sendRequest($request)
     {
-        $this->client->sendRequest($request);
-
-        $return = new DataObject(
-            [
-                'successful' => $this->isSuccessful(),
-                'request'    => $this->getLastRequest(),
-                'response'   => $this->getLastResponse()
-            ]
-        );
-
-        if ($this->client->isDebug()) {
-            $this->logger->critical($return->toString());
+        try {
+            $this->client->sendRequest($request);
+            $return = new DataObject(
+                [
+                    'successful' => $this->isSuccessful(),
+                    'request'    => $this->getLastRequest(),
+                    'response'   => $this->getLastResponse()
+                ]
+            );
+        } catch (\Exception $e) {
+            $return = new DataObject(
+                [
+                    'successful' => $this->isSuccessful(),
+                    'request'    => $this->getLastRequest(),
+                    'response'   => $this->getLastResponse(),
+                    'exception'  => $e->getMessage(),
+                    'trace'      => $e->getTraceAsString(),
+                ]
+            );
+        } finally {
+            if ($this->client->isDebug()) {
+                $this->logger->critical($return->toString());
+            }
         }
 
         return $return;
