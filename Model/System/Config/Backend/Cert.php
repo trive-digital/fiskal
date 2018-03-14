@@ -104,7 +104,7 @@ class Cert extends Value
                 throw new LocalizedException(__('The certificate file is empty.'));
             }
             $this->setValue($value['name']);
-            $content = $this->encryptor->encrypt($this->tmpDirectory->readFile($tmpPath));
+            $content = $this->encryptor->encrypt(trim($this->tmpDirectory->readFile($tmpPath)));
             $this->certFactory->create()->loadByWebsite($this->getScopeId())->setContent($content)->save();
         }
 

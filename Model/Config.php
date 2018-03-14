@@ -254,9 +254,9 @@ class Config extends DataObject
     {
         $mapping = unserialize(
             $this->scopeConfig->getValue(
-                self::XML_PATH_PAYMENT_MAPPING,
-                ScopeInterface::SCOPE_STORE,
-                $this->storeId
+            self::XML_PATH_PAYMENT_MAPPING,
+            ScopeInterface::SCOPE_STORE,
+            $this->storeId
             )
         );
 
@@ -296,9 +296,9 @@ class Config extends DataObject
     {
         $mapping = unserialize(
             $this->scopeConfig->getValue(
-                self::XML_PATH_TAX_MAPPING,
-                ScopeInterface::SCOPE_STORE,
-                $this->storeId
+            self::XML_PATH_TAX_MAPPING,
+            ScopeInterface::SCOPE_STORE,
+            $this->storeId
             )
         );
 

@@ -12,14 +12,12 @@
 namespace Trive\Fiskal\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
-use Trive\Fiskal\Api\Data\InvoiceInterface;
-use Trive\Fiskal\Api\Data\InvoiceInterfaceFactory;
-use Trive\Fiskal\Api\InvoiceRepositoryInterface;
 use Trive\Fiskal\Model\Config;
 use Magento\Sales\Model\Service\InvoiceService;
 use Magento\Sales\Model\Service\CreditmemoService;
 use Magento\Sales\Model\Order\CreditmemoFactory;
 use Magento\Framework\DB\Transaction;
+use Trive\Fiskal\Model\FiskalInvoiceService;
 use Trive\Fiskal\Model\System\Config\Source\TriggerType;
 use Magento\Framework\Event\Observer;
 use Magento\Sales\Api\Data\OrderInterface;
@@ -28,12 +26,6 @@ class OrderSaveCommitAfter implements ObserverInterface
 {
     /** @var Config */
     protected $config;
-
-    /** @var InvoiceInterfaceFactory */
-    protected $invoiceDataFactory;
-
-    /** @var InvoiceRepositoryInterface */
-    protected $invoiceRepository;
 
     /** @var InvoiceService */
     protected $invoiceService;
@@ -47,33 +39,33 @@ class OrderSaveCommitAfter implements ObserverInterface
     /** @var Transaction */
     protected $transaction;
 
+    /** @var FiskalInvoiceService */
+    protected $fiskalInvoiceService;
+
     /**
-     * Init plugin
+     * OrderSaveCommitAfter constructor.
      *
-     * @param Config                     $config
-     * @param InvoiceInterfaceFactory    $invoiceDataFactory
-     * @param InvoiceRepositoryInterface $invoiceRepository
-     * @param InvoiceService             $invoiceService
-     * @param CreditmemoService          $creditmemoService
-     * @param CreditmemoFactory          $creditmemoFactory
-     * @param Transaction                $transaction
+     * @param Config               $config
+     * @param InvoiceService       $invoiceService
+     * @param CreditmemoService    $creditmemoService
+     * @param CreditmemoFactory    $creditmemoFactory
+     * @param Transaction          $transaction
+     * @param FiskalInvoiceService $fiskalInvoiceService
      */
     public function __construct(
         Config $config,
-        InvoiceInterfaceFactory $invoiceDataFactory,
-        InvoiceRepositoryInterface $invoiceRepository,
         InvoiceService $invoiceService,
         CreditmemoService $creditmemoService,
         CreditmemoFactory $creditmemoFactory,
-        Transaction $transaction
+        Transaction $transaction,
+        FiskalInvoiceService $fiskalInvoiceService
     ) {
         $this->config = $config;
-        $this->invoiceDataFactory = $invoiceDataFactory;
-        $this->invoiceRepository = $invoiceRepository;
         $this->invoiceService = $invoiceService;
         $this->creditmemoService = $creditmemoService;
         $this->creditmemoFactory = $creditmemoFactory;
         $this->transaction = $transaction;
+        $this->fiskalInvoiceService = $fiskalInvoiceService;
     }
 
     /**
@@ -132,17 +124,7 @@ class OrderSaveCommitAfter implements ObserverInterface
             $invoice->register();
             $order->setIsInProcess(true);
             $this->transaction->addObject($invoice)->addObject($order)->save();
-
-            $fiskalInvoice = $this->invoiceDataFactory->create();
-            $fiskalInvoice->setStoreId($order->getStoreId())
-                          ->setLocationCode($this->config->getLocationCode())
-                          ->setPaymentDeviceCode($this->config->getPaymentDeviceCode())
-                          ->setEntityType(InvoiceInterface::ENTITY_TYPE_INVOICE)
-                          ->setEntityId($invoice->getEntityId());
-            try {
-                $this->invoiceRepository->save($fiskalInvoice);
-            } catch (\Exception $e) {
-            }
+            $this->fiskalInvoiceService->createFiskalInvoiceFromInvoice($invoice);
         }
 
         return $this;
@@ -177,17 +159,7 @@ class OrderSaveCommitAfter implements ObserverInterface
         $creditmemo = $this->creditmemoFactory->createByOrder($order);
         if ($creditmemo->isValidGrandTotal()) {
             $this->creditmemoService->refund($creditmemo);
-
-            $fiskalInvoice = $this->invoiceDataFactory->create();
-            $fiskalInvoice->setStoreId($order->getStoreId())
-                          ->setLocationCode($this->config->getLocationCode())
-                          ->setPaymentDeviceCode($this->config->getPaymentDeviceCode())
-                          ->setEntityType(InvoiceInterface::ENTITY_TYPE_CREDITMEMO)
-                          ->setEntityId($creditmemo->getEntityId());
-            try {
-                $this->invoiceRepository->save($fiskalInvoice);
-            } catch (\Exception $e) {
-            }
+            $this->fiskalInvoiceService->createRefundFiskalInvoiceFromCreditmemo($creditmemo);
         }
 
         return $this;

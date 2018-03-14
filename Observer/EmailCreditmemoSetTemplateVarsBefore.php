@@ -77,6 +77,13 @@ class EmailCreditmemoSetTemplateVarsBefore implements ObserverInterface
         $this->storeManager = $storeManager;
     }
 
+    /**
+     * Add fiskal template variables to creditmemo
+     *
+     * @param Observer $observer
+     *
+     * @return $this
+     */
     public function execute(Observer $observer)
     {
         $storeId = $this->storeManager->getStore()->getId();
@@ -96,6 +103,8 @@ class EmailCreditmemoSetTemplateVarsBefore implements ObserverInterface
     }
 
     /**
+     * Prepare fiskal invoice data to use in variables
+     *
      * @param $identifier
      *
      * @return array
@@ -119,7 +128,9 @@ class EmailCreditmemoSetTemplateVarsBefore implements ObserverInterface
     }
 
     /**
-     * @param $identifier
+     * Get fiskal invoice by identifier
+     *
+     * @param int $identifier
      *
      * @return InvoiceInterface[]
      */

@@ -50,4 +50,10 @@
     <type name="Magento\Config\Model\Config">
         <plugin name="systemConfigGenerateSequence" type="Trive\Fiskal\Plugin\Config"/>
     </type>
+    <type name="Magento\Sales\Api\Data\InvoiceInterface">
+        <plugin name="invoiceRepositoryCreateFiskalInvoice" type="Trive\Fiskal\Plugin\InvoiceInterface"/>
+    </type>
+    <type name="Magento\Sales\Api\CreditmemoRepositoryInterface">
+        <plugin name="creditmemoRepositoryCreateFiskalInvoice" type="Trive\Fiskal\Plugin\CreditmemoRepository"/>
+    </type>
 </config>
