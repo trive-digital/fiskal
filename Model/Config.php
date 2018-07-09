@@ -15,6 +15,7 @@ use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\DataObject;
 use Magento\Store\Model\ScopeInterface;
+use Magento\Framework\Serialize\Serializer\Json as JsonSerializer;
 
 class Config extends DataObject
 {
@@ -56,6 +57,12 @@ class Config extends DataObject
 
     const XML_PATH_TEMPLATES_AUTO_ADD_TO_CREDITMEMO = 'trive_fiskal/templates/auto_add_to_creditmemo';
 
+
+    /**
+     * @var JsonSerializer
+     */
+    protected $jsonSerializer;
+
     /**
      * Store manager
      *
@@ -83,12 +90,14 @@ class Config extends DataObject
     protected $certFactory;
 
     /**
+     * @param JsonSerializer        $jsonSerializer
      * @param StoreManagerInterface $storeManager
-     * @param ScopeConfigInterface  $scopeConfig ,
+     * @param ScopeConfigInterface  $scopeConfig
      * @param CertFactory           $certFactory
      * @param array                 $params
      */
     public function __construct(
+        JsonSerializer $jsonSerializer,
         StoreManagerInterface $storeManager,
         ScopeConfigInterface $scopeConfig,
         CertFactory $certFactory,
@@ -96,6 +105,7 @@ class Config extends DataObject
     ) {
         parent::__construct($params);
 
+        $this->jsonSerializer = $jsonSerializer;
         $this->storeManager = $storeManager;
         $this->scopeConfig = $scopeConfig;
         $this->certFactory = $certFactory;
@@ -252,7 +262,7 @@ class Config extends DataObject
      */
     public function getPaymentMapping()
     {
-        $mapping = unserialize(
+        $mapping = $this->jsonSerializer->unserialize(
             $this->scopeConfig->getValue(
             self::XML_PATH_PAYMENT_MAPPING,
             ScopeInterface::SCOPE_STORE,
@@ -294,7 +304,7 @@ class Config extends DataObject
      */
     public function getTaxMapping()
     {
-        $mapping = unserialize(
+        $mapping = $this->jsonSerializer->unserialize(
             $this->scopeConfig->getValue(
             self::XML_PATH_TAX_MAPPING,
             ScopeInterface::SCOPE_STORE,
