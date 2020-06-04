@@ -445,9 +445,13 @@ class Invoice extends Client
     public function sendEmail($object, $type)
     {
         if ($type == FiskalInvoiceInterface::ENTITY_TYPE_INVOICE) {
-            $this->invoiceManagementInterface->notify($object->getId());
+            if ( $this->config->getSendInvoiceEmail() ) {
+                $this->invoiceManagementInterface->notify($object->getId());
+            }
         } elseif ($type == FiskalInvoiceInterface::ENTITY_TYPE_CREDITMEMO) {
-            $this->creditmemoManagementInterface->notify($object->getId());
+            if ( $this->config->getSendCreditmemoEmail() ) {
+                $this->creditmemoManagementInterface->notify($object->getId());
+            }
         }
     }
 

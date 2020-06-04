@@ -115,11 +115,19 @@
             </group>
             <group id="templates" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1">
                 <label>Email Templates</label>
-                <field id="auto_add_to_invoice" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1">
+                <field id="send_invoice_email" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1">
+                    <label>Send Invoice Email To The Customer</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="auto_add_to_invoice" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1">
                     <label>Auto Add Fiskal Data To Invoice Template</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="auto_add_to_creditmemo" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1">
+                <field id="send_creditmemo_email" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1">
+                    <label>Send Creditmemo Email To The Customer</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="auto_add_to_creditmemo" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1">
                     <label>Auto Add Fiskal Data To Creditmemo Template</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>

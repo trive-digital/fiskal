@@ -57,6 +57,10 @@ class Config extends DataObject
 
     const XML_PATH_TEMPLATES_AUTO_ADD_TO_CREDITMEMO = 'trive_fiskal/templates/auto_add_to_creditmemo';
 
+    const XML_PATH_TEMPLATES_SEND_INVOICE_EMAIL = 'trive_fiskal/templates/send_invoice_email';
+
+    const XML_PATH_TEMPLATES_SEND_CREDITMEMO_EMAIL = 'trive_fiskal/templates/send_creditmemo_email';
+
 
     /**
      * @var JsonSerializer
@@ -442,6 +446,20 @@ class Config extends DataObject
     }
 
     /**
+     * Get auto add fiskal data to invoice from stored config
+     *
+     * @return string
+     */
+    public function getSendInvoiceEmail()
+    {
+        return $this->scopeConfig->isSetFlag(
+            self::XML_PATH_TEMPLATES_SEND_INVOICE_EMAIL,
+            ScopeInterface::SCOPE_STORE,
+            $this->storeId
+        );
+    }
+
+    /**
      * Get auto add fiskal data to creditmemo from stored config
      *
      * @return string
@@ -450,6 +468,20 @@ class Config extends DataObject
     {
         return $this->scopeConfig->isSetFlag(
             self::XML_PATH_TEMPLATES_AUTO_ADD_TO_CREDITMEMO,
+            ScopeInterface::SCOPE_STORE,
+            $this->storeId
+        );
+    }
+
+    /**
+     * Get auto add fiskal data to invoice from stored config
+     *
+     * @return string
+     */
+    public function getSendCreditmemoEmail()
+    {
+        return $this->scopeConfig->isSetFlag(
+            self::XML_PATH_TEMPLATES_SEND_CREDITMEMO_EMAIL,
             ScopeInterface::SCOPE_STORE,
             $this->storeId
         );
