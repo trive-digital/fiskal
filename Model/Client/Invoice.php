@@ -529,7 +529,10 @@ class Invoice extends Client
                                   )
                                   ->setIncrementId($increment)
                                   ->setInvoiceNumber($invoiceNumber->getFullInvoiceNumber())
-                                  ->setSyncedAt($this->getCurrentDateTime());
+                                  ->setSyncedAt($this->getCurrentDateTime())
+                                  ->setFiskalDateTime($preparedInvoice->getDateTime())
+                                  ->setFiskalDataSent($response->getRequest())
+                                  ->setFiskalDataResponse($response->getResponse());
                     $this->saveSequence($increment, $sequence);
                     $successful = true;
                 } else {
@@ -570,7 +573,7 @@ class Invoice extends Client
                 $taxClassId = $taxClass->getClassId();
                 $taxClasses[$taxClassId] = [
                     'title'      => $taxClass->getClassName(),
-                    'percent'    => $item->getTaxPercent(),
+                    'percent'    => (int)$item->getOrderItem()->getTaxPercent(),
                     'amount'     => (
                         isset(
                             $taxClasses[$taxClassId]['amount']) ?
@@ -592,9 +595,10 @@ class Invoice extends Client
         if (floatval($invoice->getShippingTaxAmount()) > 0) {
             $taxClass = $storeTaxClasses[$this->taxHelper->getShippingTaxClass($invoice->getStoreId())];
             $taxClassId = $taxClass->getClassId();
+            $taxPercent = ($invoice->getShippingTaxAmount() / $invoice->getShippingAmount()) * 100;
             $taxClasses[$taxClassId] = [
                 'title'      => $taxClass->getClassName(),
-                'percent'    => ($invoice->getShippingTaxAmount() / $invoice->getShippingAmount()) * 100,
+                'percent'    => empty($taxClasses[$taxClassId]['percent']) ? $taxPercent : $taxClasses[$taxClassId]['percent'],
                 'amount'     => (
                     isset(
                         $taxClasses[$taxClassId]['amount']) ?
@@ -634,7 +638,7 @@ class Invoice extends Client
         $fiskalInvoice = new FiskalInvoice();
         $fiskalInvoice->setOib($this->config->getOib())
                       ->setRegisteredForPdv($this->config->isRegisteredForPdv())
-                      ->setDateTime($this->getCurrentDateTime())
+                      ->setDateTime($this->generateFiskalDateTime())
                       ->setInvoiceNumber($invoiceNumber)
                       ->setPdvTaxes($this->getPdvTaxRates())
                       ->setTaxExemptValue(0)
@@ -677,7 +681,7 @@ class Invoice extends Client
                 $taxClassId = $taxClass->getClassId();
                 $taxClasses[$taxClassId] = [
                     'title'      => $taxClass->getClassName(),
-                    'percent'    => $item->getTaxPercent(),
+                    'percent'    => $item->$item->getOrderItem()->getTaxPercent(),
                     'amount'     => (
                         isset(
                             $taxClasses[$taxClassId]['amount']) ?
@@ -699,9 +703,10 @@ class Invoice extends Client
         if (floatval($creditmemo->getShippingTaxAmount()) > 0) {
             $taxClass = $storeTaxClasses[$this->taxHelper->getShippingTaxClass($creditmemo->getStoreId())];
             $taxClassId = $taxClass->getClassId();
+            $taxPercent = ($creditmemo->getShippingTaxAmount() / $creditmemo->getShippingAmount()) * 100;
             $taxClasses[$taxClassId] = [
                 'title'      => $taxClass->getClassName(),
-                'percent'    => ($creditmemo->getShippingTaxAmount() / $creditmemo->getShippingAmount()) * 100,
+                'percent'    => empty($taxClasses[$taxClassId]['percent']) ? $taxPercent : $taxClasses[$taxClassId]['percent'],
                 'amount'     => (
                     isset(
                         $taxClasses[$taxClassId]['amount']) ?
@@ -739,7 +744,7 @@ class Invoice extends Client
         $fiskalInvoice = new FiskalInvoice();
         $fiskalInvoice->setOib($this->config->getOib())
                       ->setRegisteredForPdv($this->config->isRegisteredForPdv())
-                      ->setDateTime($this->getCurrentDateTime())
+                      ->setDateTime($this->generateFiskalDateTime())
                       ->setInvoiceNumber($invoiceNumber)
                       ->setPdvTaxes($this->getPdvTaxRates())
                       ->setTaxExemptValue(0)
@@ -757,5 +762,16 @@ class Invoice extends Client
         $fiskalInvoice->setResendFlag(false);
 
         return $fiskalInvoice;
+    }
+
+    /**
+     * Generate date and time, and format according to spec
+     *
+     * @return string
+     */
+    private function generateFiskalDateTime()
+    {
+        $dateTime = new \DateTime("now", new \DateTimeZone('Europe/Zagreb'));
+        return $dateTime->format('d.m.Y\TH:i:s');
     }
 }

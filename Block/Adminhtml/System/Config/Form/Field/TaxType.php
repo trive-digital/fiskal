@@ -53,7 +53,7 @@ class TaxType extends Select
     protected function initTaxTypes()
     {
         $this->fiskalTaxTypes = [
-            Invoice::TAX_TYPE_PDV => 'PDV',
+            Invoice::TAX_TYPE_PDV => 'PDV'
             //            @Todo: Trive - commented out intentionally, we chose not to cover these taxes for now
             //            Invoice::TAX_TYPE_PNP => 'PNP',
             //            Invoice::TAX_TYPE_MARGIN => 'Margin Tax',

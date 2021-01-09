@@ -96,6 +96,10 @@ class TaxMap extends AbstractFieldArray
         $optionExtraAttr['option_'.$this->getTaxClassRenderer()->calcOptionHash(
             $row->getData('tax_class_id')
         )] = 'selected="selected"';
+
+        $optionExtraAttr['option_'.$this->getFiskalTaxTypeRenderer()->calcOptionHash(
+            $row->getData('fiskal_tax_type')
+        )] = 'selected="selected"';
         $row->setData('option_extra_attrs', $optionExtraAttr);
     }
 }

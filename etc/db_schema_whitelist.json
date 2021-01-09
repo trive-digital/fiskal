@@ -1,0 +1,9 @@
+{
+    "trive_fiskal_invoice": {
+        "column": {
+            "fiskal_data_sent": true,
+            "fiskal_date_time": true,
+            "fiskal_data_response": true
+        }
+    }
+}

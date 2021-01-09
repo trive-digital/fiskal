@@ -136,6 +136,17 @@ class Invoice extends AbstractExtensibleModel implements InvoiceInterface
         return $this->setData(InvoiceInterface::SYNCED_AT, $syncedAt);
     }
 
+    public function getFiskalDateTime()
+    {
+        return $this->_getData(InvoiceInterface::FISKAL_DATE_TIME);
+    }
+
+    public function setFiskalDateTime($fiskalDateTime)
+    {
+        return $this->setData(InvoiceInterface::FISKAL_DATE_TIME, $fiskalDateTime);
+    }
+
+
     public function getJir()
     {
         return $this->_getData(InvoiceInterface::JIR);
@@ -166,6 +177,26 @@ class Invoice extends AbstractExtensibleModel implements InvoiceInterface
         return $this->setData(InvoiceInterface::ERROR_MESSAGE, $errorMessage);
     }
 
+    public function getFiskalDataSent()
+    {
+        return $this->_getData(InvoiceInterface::FISKAL_DATA_SENT);
+    }
+
+    public function setFiskalDataSent($fiskalDataSent)
+    {
+        return $this->setData(InvoiceInterface::FISKAL_DATA_SENT, $fiskalDataSent);
+    }
+    
+    public function getFiskalDataResponse()
+    {
+        return $this->_getData(InvoiceInterface::FISKAL_DATA_RESPONSE);
+    }
+
+    public function setFiskalDataResponse($fiskalDataResponse)
+    {
+        return $this->setData(InvoiceInterface::FISKAL_DATA_RESPONSE, $fiskalDataResponse);
+    }
+    
     public function getExtensionAttributes()
     {
         return $this->_getExtensionAttributes();

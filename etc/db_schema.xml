@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="trive_fiskal_invoice" resource="default" engine="innodb" comment="Fiskal Invoice Table">
+        <column xsi:type="text" name="fiskal_data_sent" nullable="true" comment="Fiskal Data Sent"/>
+        <column xsi:type="text" name="fiskal_data_response" nullable="true" comment="Fiskal Data Respone"/>
+        <column xsi:type="datetime" name="fiskal_date_time" nullable="true" comment="Fiskal Invoice Date Time"/>
+    </table>
+
+</schema>

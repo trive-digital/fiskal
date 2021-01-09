@@ -105,6 +105,9 @@ class PaymentMap extends AbstractFieldArray
         $optionExtraAttr['option_'.$this->getPaymentMethodRenderer()->calcOptionHash(
             $row->getData('payment_method_code')
         )] = 'selected="selected"';
+        $optionExtraAttr['option_'.$this->getFiskalPaymentTypeRenderer()->calcOptionHash(
+            $row->getData('fiskal_payment_type')
+        )] = 'selected="selected"';
         $row->setData('option_extra_attrs', $optionExtraAttr);
     }
 }

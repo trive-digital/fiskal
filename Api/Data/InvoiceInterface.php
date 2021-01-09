@@ -32,6 +32,8 @@ interface InvoiceInterface extends ExtensibleDataInterface
     const ENTITY_ID = 'entity_id';
 
     const CREATED_AT = 'created_at';
+    
+    const FISKAL_DATE_TIME = 'fiskal_date_time';
 
     const SYNCED_AT = 'synced_at';
 
@@ -40,6 +42,10 @@ interface InvoiceInterface extends ExtensibleDataInterface
     const ZKI = 'zki';
 
     const ERROR_MESSAGE = 'error_message';
+    
+    const FISKAL_DATA_SENT = 'fiskal_data_sent';
+    
+    const FISKAL_DATA_RESPONSE = 'fiskal_data_response';
 
     const ENTITY_TYPE_INVOICE = 'invoice';
 
@@ -164,6 +170,18 @@ interface InvoiceInterface extends ExtensibleDataInterface
      * @return $this
      */
     public function setSyncedAt($syncedAt);
+    
+    /**
+     * @return string
+     */
+    public function getFiskalDateTime();
+    
+    /**
+     * @param string $fiskalDateTime
+     *
+     * @return $this
+     */
+    public function setFiskalDateTime($fiskalDateTime);
 
     /**
      * @return string
@@ -201,6 +219,30 @@ interface InvoiceInterface extends ExtensibleDataInterface
      */
     public function setErrorMessage($errorMessage);
 
+    /**
+     * @return string
+     */
+    public function getFiskalDataSent();
+
+    /**
+     * @param string $fiskalDataSent
+     *
+     * @return $this
+     */
+    public function setFiskalDataSent($fiskalDataSent);
+    
+    /**
+     * @return string
+     */
+    public function getFiskalDataResponse();
+
+    /**
+     * @param string $fiskalDataResponse
+     *
+     * @return $this
+     */
+    public function setFiskalDataResponse($fiskalDataResponse);
+    
     /**
      * @return \Trive\Fiskal\Api\Data\InvoiceExtensionInterface|null
      */
