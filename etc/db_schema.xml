@@ -7,6 +7,7 @@
         <column xsi:type="text" name="fiskal_data_sent" nullable="true" comment="Fiskal Data Sent"/>
         <column xsi:type="text" name="fiskal_data_response" nullable="true" comment="Fiskal Data Respone"/>
         <column xsi:type="datetime" name="fiskal_date_time" nullable="true" comment="Fiskal Invoice Date Time"/>
+        <column xsi:type="varchar" name="jir" nullable="true" length="36" comment="JIR"/>
     </table>
 
 </schema>
